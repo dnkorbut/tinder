@@ -1,4 +1,4 @@
-# The script of happiness
+# The script of the Happiness
 tinder script
 
 Script is configured to match everyone by default making 1000 matches per run. you can reconfigure to match criterias judging by profile info text
