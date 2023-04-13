@@ -4,8 +4,8 @@
     const tsize = 128 // minimal amount of letters in bio
     const regex = /no fwb/i // dislike if found
     const likes = 1000 // maximal likes per run
-    const speed = 15 // timeout to let it be preloaded
-    const timeo = 15 // timeout to let bio be loaded
+    const speed = 1 // timeout to let it be preloaded
+    const timeo = 51 // timeout to let bio be loaded
     const msgtm = 200 // timeout on match
     // ^
 
@@ -13,6 +13,7 @@
     let noped = 0
     let msged = 0
     let rexno = 0
+    let count = 0
 
     let likesleft = likes
 
@@ -50,6 +51,9 @@
             } else {
                 noped++
             }
+            //console.log('clicked like: ' + likeme)
+        } else {
+            //console.log('%cERROR HERE!!!!', 'color: yellow; background-color: red; padding: 1em; font-size: larger')
         }
     }
     function gettext() {
@@ -79,6 +83,7 @@
         if (text === null) {
             console.log('wait..')
             setTimeout(op, timeo)
+            count--
             return
         }
         let res = false
@@ -113,6 +118,9 @@
         if (me) {
             me.click()
             setTimeout(check, timeo)
+            if (me.className == 'Hidden') {
+                count++
+            }
         } else {
             console.log('wait...')
             setTimeout(op, timeo)
@@ -125,6 +133,7 @@
         }
         if ((liked + noped) % 10 == 0) {
             console.log('liked: ' + liked + '\nnoped: ' + noped + '\ntotal: ' + (liked + noped) + '\nmsged: ' + msged + '\nrexno: ' + rexno + '\nlikes: ' + Math.round(liked / (liked + noped) * 100) + '%')
+            console.log('%c' + count, 'color: white; background-color: blue; padding: 1em; font-size: larger')
         }
     }
     loop()
