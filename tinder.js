@@ -146,7 +146,7 @@
             close()
             setTimeout(op, msg() ? msgtm : timeo)
         }
-        if (likesleft == 0 || (liked + noped) % 10 == 0) {
+        if (likesleft % 10 == 0) {
             stat()
         }
     }
