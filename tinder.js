@@ -15,6 +15,8 @@
     let rexno = 0
     let count = 0
 
+    let otext = ''
+
     let likesleft = likes
 
     function msg() {
@@ -76,16 +78,24 @@
         if (o) {
             return o.innerText
         }
-        return null
+        return ''
     }
     function check() {
         let text = gettext()
-        if (text === null) {
-            console.log('wait..')
-            setTimeout(op, timeo)
-            count--
-            return
+
+        if (text == otext) {
+            console.log('%cSame Descr', 'color: yellow; background-color: green; padding: 1em; font-size: larger')
+            count++
+            likesleft++
+        } else {
+            otext = text
         }
+        // if (text === null) {
+        //     console.log('wait..')
+        //     setTimeout(op, timeo)
+        //     count--
+        //     return
+        // }
         let res = false
         if (text.length > tsize) {
             res = true
@@ -118,22 +128,26 @@
         if (me) {
             me.click()
             setTimeout(check, timeo)
-            if (me.className == 'Hidden') {
-                count++
-            }
+            // if (me.className == 'Hidden') {
+            //     count++
+            // }
         } else {
             console.log('wait...')
             setTimeout(op, timeo)
         }
+    }
+    function stat() {
+        console.log('%cleft: ' + likesleft, 'color: white; background-color: red; padding: 1em; font-size: larger')
+        console.log('liked: ' + liked + '\nnoped: ' + noped + '\ntotal: ' + (liked + noped) + '\nmsged: ' + msged + '\nrexno: ' + rexno + '\nlikes: ' + Math.round(liked / (liked + noped) * 100) + '%')
+        console.log('%c' + count, 'color: white; background-color: blue; padding: 1em; font-size: larger')
     }
     function loop() {
         if (likesleft-- > 0) {
             close()
             setTimeout(op, msg() ? msgtm : timeo)
         }
-        if ((liked + noped) % 10 == 0) {
-            console.log('liked: ' + liked + '\nnoped: ' + noped + '\ntotal: ' + (liked + noped) + '\nmsged: ' + msged + '\nrexno: ' + rexno + '\nlikes: ' + Math.round(liked / (liked + noped) * 100) + '%')
-            console.log('%c' + count, 'color: white; background-color: blue; padding: 1em; font-size: larger')
+        if (likesleft == 0 || (liked + noped) % 10 == 0) {
+            stat()
         }
     }
     loop()
